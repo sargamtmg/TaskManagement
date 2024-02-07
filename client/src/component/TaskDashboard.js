@@ -1,13 +1,13 @@
 import TaskStatusBoard from "./TaskStatusBoard";
 
-const status = ['to_do','development','review','done'];
+const status = ['to_be_done','development','review','done'];
 function TaskDashboard(){
     return(
         <div className="taskboard">
             {
-                status.map((s,index)=>{
+                status.map((item,index)=>{
                     return(
-                        <TaskStatusBoard status={s} key={index}/>
+                        <TaskStatusBoard status={item} key={index}/>
                     )
                 })
             }

@@ -3,12 +3,16 @@ import TaskCard from "./TaskCard";
 
 function TaskStatusBoard(props){
 
-    //const [statusTask,setStatusTask]=useState(null);
+    const [statusTask,setStatusTask]=useState(null);
 
     useEffect(()=>{
-        let url="http://localhost:8000/";
-        fetch(url).then((response)=>{
-            console.log(response.data);
+        let url="http://localhost:8000/task";
+        fetch(`${url}?status=${props.status}`).then((response)=>{
+            return response.json();
+        })
+        .then((data)=>{
+            setStatusTask(data);
+            console.log(data);
         })
         .catch((err)=>{
             console.log("error getting data"+err);
@@ -20,9 +24,11 @@ function TaskStatusBoard(props){
             <div className="status_board">
                 <div className="status_title">{props.status}</div>
                 <div className="status_body">
-                    <TaskCard title="hello"/>
-                    <TaskCard title="another title"/>
-                    <TaskCard title="one more title"/>
+                    {statusTask? statusTask.map((taskitem,index)=>{
+                        return(
+                            <TaskCard key={index} title={taskitem.title}/>
+                        )
+                    }) : 0}
                 </div>
             </div>
         </div>

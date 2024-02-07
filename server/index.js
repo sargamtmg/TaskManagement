@@ -1,8 +1,14 @@
 const express = require('express');
+const cors = require("cors");
 const connectToMongoDB = require('./db.js');
 const { ObjectId } = require('mongodb');
 
+const corsOptions = {
+    origin: "http://localhost:3000",
+};
+
 const app = express();
+app.use(cors(corsOptions));
 const port = 8000;
 
 app.use(express.json());
@@ -48,7 +54,12 @@ app.post('/user',(req,res)=>{
 
 //get all tasks
 app.get('/task', (req, res) => {
-    db.collection('task').find().toArray()
+    const {status} = req.query;
+    const condition={};
+    if(status){
+        condition.status=status;
+    }
+    db.collection('task').find(condition).toArray()
     .then((documents)=>{
         console.log("documents =>"+documents);
         res.status(200).json(documents);
