@@ -1,0 +1,45 @@
+.createTaskModalWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+    overflow: auto;
+    .createTaskModal{
+        width: 80%;
+        height: 90%;
+        .createTaskHeading{
+            width: 100%;
+            height: 15%;
+            background-color:#e9967a;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        .taskForm{
+            background-color: bisque;
+            width: 100%;
+            height: 85%;
+            overflow: scroll;
+            display: flex;
+            flex-direction: column;
+            justify-content:baseline;
+            align-items:center;
+        }
+    }
+  }
+
+  .closeTaskButton{
+    background-color: darkcyan;
+    width: fit-content;
+    padding: 5px;
+    position:absolute;
+    top: 2%;
+    right: 10%;
+    cursor: pointer;
+}

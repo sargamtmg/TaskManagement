@@ -1,4 +1,12 @@
 @import './common/color.scss';
 @import './component/taskDashboard.scss';
 @import './component/taskStatusBoard.scss';
-@import './component/task.scss'
+@import './component/task.scss';
+@import './component/createtask.scss';
+
+.createTaskButton{
+    background-color: darkkhaki;
+    padding: 5px;
+    width:fit-content;
+    cursor: pointer;
+}
