@@ -1,0 +1,9 @@
+.taskboard{
+    width: 75vw;
+    height:80vh;
+    background-color: $board_back;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
