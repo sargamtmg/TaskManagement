@@ -1,0 +1,32 @@
+.user_profile_section {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  .user {
+    display: flex;
+    align-items: center;
+    .profile {
+      background-color: aliceblue;
+      height: 80%;
+      aspect-ratio: 1;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+    .user_info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5px;
+      .user_title {
+        color: #555;
+        font-weight: 600;
+      }
+      .user_username {
+        font-weight: bold;
+        white-space: nowrap;
+      }
+    }
+  }
+}

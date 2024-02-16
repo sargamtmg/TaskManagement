@@ -1,19 +1,21 @@
 import TaskStatusBoard from "./TaskStatusBoard";
 
-const status = ['to_be_done','development','review','done'];
-function TaskDashboard(){
-    return(
-        <div className="taskboard">
-            {
-                status.map((item,index)=>{
-                    return(
-                        <TaskStatusBoard status={item} key={index}/>
-                    )
-                })
-            }
-             
-        </div>
-    )
+const statuses = ["to_do", "development", "review", "done"];
+function TaskDashboard(props) {
+  return (
+    <div className="taskboard">
+      {statuses.map((status, index) => {
+        return (
+          <TaskStatusBoard
+            key={index}
+            userId={props.userId}
+            projectId={props.projectId}
+            status={status}
+          />
+        );
+      })}
+    </div>
+  );
 }
 
 export default TaskDashboard;

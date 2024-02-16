@@ -1,0 +1,26 @@
+.comment_wrapper {
+  margin-bottom: 0.5em;
+  .comment_user {
+    width: 100%;
+    height: auto;
+    display: flex;
+    .comment_user_name {
+      align-self: center;
+      font-weight: bold;
+    }
+    .comment_time {
+      align-self: end;
+      color: #333;
+      font-size: 0.85em;
+      margin-left: 2em;
+    }
+  }
+  .comment_section {
+    width: 100%;
+    height: auto;
+    display: flex;
+    .comment_data {
+      margin-left: 1em;
+    }
+  }
+}

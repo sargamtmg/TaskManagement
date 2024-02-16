@@ -1,10 +1,15 @@
-const express = require('express');
+const express = require("express");
 const cors = require("cors");
-const connectToMongoDB = require('./db.js');
-const { ObjectId } = require('mongodb');
+const JWT = require("jsonwebtoken");
+const connectToMongoDB = require("./db.js");
+const { ObjectId } = require("mongodb");
+const projectController = require("./controllers/projectController.js");
+const taskController = require("./controllers/taskController.js");
+const userController = require("./controllers/userController.js");
+const mongoose = require("mongoose");
 
 const corsOptions = {
-    origin: "http://localhost:3000",
+  origin: "http://localhost:3000",
 };
 
 const app = express();
@@ -13,81 +18,68 @@ const port = 8000;
 
 app.use(express.json());
 
-let db;
-// Connect to MongoDB
-connectToMongoDB()
-.then(database => {
-        db=database;
-        // Start the Express server
-        app.listen(port, () => {
-            console.log(`Server is running on http://localhost:${port}`);
-        });
-})
-.catch(error => {
-    console.error('Failed to connect to MongoDB:', error);
-    process.exit(1); // Exit the process if MongoDB connection fails
+// let db;
+// // Connect to MongoDB
+// connectToMongoDB()
+//   .then((database) => {
+//     db = database;
+//     // Start the Express server
+//     app.listen(port, () => {
+//       console.log(`Server is running on http://localhost:${port}`);
+//     });
+//   })
+//   .catch((error) => {
+//     console.error("Failed to connect to MongoDB:", error);
+//     process.exit(1); // Exit the process if MongoDB connection fails
+//   });
+
+mongoose.connect("mongodb://localhost:27017/taskManagement");
+// Connection event handlers
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MongoDB");
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
 });
 
 //get all users
-app.get('/user', (req, res) => {
-    db.collection('user').find().toArray()
-    .then((documents)=>{
-        console.log("documents =>"+documents);
-        res.status(200).json(documents);
-    })
-    .catch(err=>{
-        res.status(500).json({"error":err});
-    })
-});
+app.get("/user", userController.getUsers);
 
-//post user
-app.post('/user',(req,res)=>{
-    let user = req.body;
-    db.collection('user').insertOne(user)
-    .then(()=>{
-        res.status(200).json({"message":"user created sucessfully"});
-    })
-    .catch(err=>{
-        res.status(500).json({"error creatinng user":err});
-    })
-})
+//create user
+app.post("/user", userController.createUser);
+
+//get usernames from members userId
+app.post("/usernames", userController.getUsernames);
+
+//authenticate user
+app.post("/user/auth", userController.authenticateUser);
 
 //get all tasks
-app.get('/task', (req, res) => {
-    const {status} = req.query;
-    const condition={};
-    if(status){
-        condition.status=status;
-    }
-    db.collection('task').find(condition).toArray()
-    .then((documents)=>{
-        console.log("documents =>"+documents);
-        res.status(200).json(documents);
-    })
-    .catch(err=>{
-        res.status(500).json({"error":err});
-    })
-});
+app.get("/task", taskController.getAllTask);
+
+//get task by id
+app.get("/task/:taskId", taskController.getTaskByTaskId);
 
 //create task
-app.post('/task',(req,res)=>{
-    let task = req.body;
-    db.collection('task').insertOne(task)
-    .then(()=>{
-        res.status(200).json({"message":"task created sucessfully"});
-    })
-    .catch(err=>{
-        res.status(500).json({"error creatinng task":err});
-    })
-})
+app.post("/task/:userId", taskController.createTask);
 
 //delete task
-app.delete('/task/:id',(req,res)=>{
-    db.collection('task').deleteOne({_id: new ObjectId(req.params.id)})
-    .then(()=>{
-        res.status(200).json({"message":"task deleted sucessfully"});
-    })
-    .catch(err=>{
-        res.status(500).json({"error deleating task ":err});
-    })
-})
+app.delete("/task/:taskId", taskController.deleteTask);
+
+//update task
+app.post("/task/update/:taskId", taskController.updateTask);
+
+//add Comment in task
+app.post("/task/addcomment/:taskId", taskController.addCommentTask);
+
+// create project
+app.post("/project/:userId", projectController.createProject);
+
+// get projects by userId
+app.get("/projects/:userId", projectController.getProjects);
+
+//get project by projectId
+app.get("/project/:projectId", projectController.getProjectByProjectId);
+
+//add member to project
+app.post("/project/addmember/:projectId", projectController.addMember);

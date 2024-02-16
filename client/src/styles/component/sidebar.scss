@@ -1,0 +1,65 @@
+.sidebar_wrapper {
+  width: 25vw;
+  height: 100vh;
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .application_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    .application_name {
+      font-weight: bold;
+      font-size: 2em;
+      color: white;
+    }
+    .application_tag {
+      color: #ddd;
+      text-align: center;
+    }
+  }
+  .sidebar_horizontal_bar {
+    width: 90%;
+    margin-top: 10%;
+    margin-bottom: 15%;
+  }
+  .menu {
+    width: 80%;
+    height: auto;
+    .home_menu {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 0.5em;
+      cursor: pointer;
+    }
+    .menu_section {
+      padding: 0.5em;
+      .menu_heading {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+      .item_menu {
+        margin-left: 1.5em;
+        padding: 0.4em 0 0.4em 0;
+        font-weight: 450;
+        line-height: 1.2em;
+      }
+      .project_item_menu {
+        cursor: pointer;
+        &:hover {
+          font-weight: 600;
+        }
+      }
+      .create_menu_item {
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+}

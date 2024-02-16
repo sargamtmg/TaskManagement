@@ -1,12 +1,22 @@
-@import './common/color.scss';
-@import './component/taskDashboard.scss';
-@import './component/taskStatusBoard.scss';
-@import './component/task.scss';
-@import './component/createtask.scss';
+@import "./common/color.scss";
+@import "./component/taskDashboard.scss";
+@import "./component/taskStatusBoard.scss";
+@import "./component/task.scss";
+@import "./component/createtask.scss";
+@import "./component/sidebar.scss";
+@import "./component/projectcard.scss";
+@import "./component/createProject.scss";
+@import "./component/userProfile.scss";
+@import "./pages/register.scss";
+@import "./pages/login.scss";
+@import "./pages/taskdetail.scss";
+@import "./component/comment.scss";
+@import "./pages/home.scss";
+@import "./pages/projectPage.scss";
 
-.createTaskButton{
-    background-color: darkkhaki;
-    padding: 5px;
-    width:fit-content;
-    cursor: pointer;
+.createTaskButton {
+  background-color: darkkhaki;
+  padding: 5px;
+  width: fit-content;
+  cursor: pointer;
 }
