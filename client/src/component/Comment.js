@@ -5,7 +5,11 @@ function Comment(props) {
   return (
     <div className="comment_wrapper">
       <div className="comment_user">
-        <div className="comment_user_name">{props.commentInfo.commenter}</div>
+        <div className="comment_user_name">
+          {props.commentInfo.commenter
+            ? props.commentInfo.commenter.username
+            : ""}
+        </div>
         <div className="comment_time">{commentTime}</div>
       </div>
       <div className="comment_section">

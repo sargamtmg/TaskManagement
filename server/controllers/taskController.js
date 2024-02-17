@@ -18,6 +18,11 @@ exports.getAllTask = (req, res) => {
 exports.getTaskByTaskId = (req, res) => {
   const taskId = req.params.taskId;
   Task.find({ _id: taskId })
+    .populate("created_by", "username")
+    .populate("assign_to", "username")
+    .populate("approved.approved_by", "username")
+    .populate("comments.commenter", "username")
+    .populate("project", "title")
     .then((documents) => {
       res.status(200).json(documents);
     })

@@ -35,6 +35,8 @@ exports.getProjects = (req, res) => {
 exports.getProjectByProjectId = (req, res) => {
   const projectId = req.params.projectId;
   Project.find({ _id: projectId })
+    .populate("members", "username")
+    .populate("created_by", "username")
     .then((data) => {
       res.status(200).json(data);
     })

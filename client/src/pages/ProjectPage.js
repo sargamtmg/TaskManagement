@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 function ProjectPage() {
   const [projectInfo, setProjectInfo] = useState([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  const [members, setMembers] = useState([]);
+  //const [members, setMembers] = useState([]);
   const [allUser, setAllUser] = useState([]);
 
   const currentUser = {
@@ -41,25 +41,6 @@ function ProjectPage() {
   useEffect(() => {
     fetchingData();
   }, []);
-
-  useEffect(() => {
-    let url = `http://localhost:8000/usernames`;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userIds: projectInfo.members }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setMembers(data.usernames);
-        console.log(data.usernames);
-      })
-      .catch((err) => {
-        alert("error fetching all user for add member functionality : " + err);
-      });
-  }, [projectInfo.members]);
 
   const handleAddMember = (e) => {
     const { name, value } = e.target;
@@ -102,9 +83,9 @@ function ProjectPage() {
             <div className="project_title">{projectInfo.title}</div>
             <div className="project_members">
               Members:
-              {members &&
-                members.length &&
-                members.map((member, index) => {
+              {projectInfo.members &&
+                projectInfo.members.length &&
+                projectInfo.members.map((member, index) => {
                   return (
                     <div key={index} className="project_member">
                       {member.username}
