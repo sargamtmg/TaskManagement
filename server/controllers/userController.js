@@ -16,23 +16,6 @@ exports.getUsers = (req, res) => {
     });
 };
 
-exports.getUsernames = async (req, res) => {
-  try {
-    const { userIds } = req.body;
-    console.log(userIds);
-
-    const usernames = [];
-    for (const userId of userIds) {
-      const document = await User.findOne({ _id: userId }, { username: 1 });
-      usernames.push(document);
-    }
-
-    res.status(200).json({ usernames });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
 exports.createUser = async (req, res) => {
   let pass = await bcrypt.hash(req.body.password, 10);
   let user = new User({ ...req.body, password: pass });

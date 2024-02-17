@@ -48,9 +48,6 @@ app.get("/user", userController.getUsers);
 //create user
 app.post("/user", userController.createUser);
 
-//get usernames from members userId
-app.post("/usernames", userController.getUsernames);
-
 //authenticate user
 app.post("/user/auth", userController.authenticateUser);
 
