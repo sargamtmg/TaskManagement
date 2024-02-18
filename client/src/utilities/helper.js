@@ -1,5 +1,6 @@
-export const truncatedText = (text, length) => {
-  let len = length ? length : 30;
+export const truncatedText = (text, lengthExpected) => {
+  let len = lengthExpected ? lengthExpected : 30;
+  if (!text) return null;
   if (text.length <= len) return text;
   return text.substr(0, len) + "...";
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Comment from "../component/Comment";
 import { useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -11,6 +11,7 @@ function TaskDetail(props) {
   const [projectInfo, setProjectInfo] = useState();
   const [isOpenCommentBox, setIsOpenCommentBox] = useState(false);
   const [commentInput, setCommentInput] = useState("");
+  const commentRef = useRef(null);
   const [taskInfo, setTaskInfo] = useState({
     summary: "",
     description: "",
@@ -33,10 +34,10 @@ function TaskDetail(props) {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setTaskInfo(data[0]);
-        setStatus(data[0].status);
-        setPriority(data[0].priority);
-        setAssignee(data[0].assign_to._id);
+        setTaskInfo(data);
+        setStatus(data.status);
+        setPriority(data.priority);
+        setAssignee(data.assign_to._id);
       })
       .catch((err) => {
         alert("error fetching taskInfo : " + err);
@@ -55,7 +56,7 @@ function TaskDetail(props) {
         await fetch(projectUrl)
           .then((response) => response.json())
           .then((data) => {
-            setProjectInfo(data[0]);
+            setProjectInfo(data);
             console.log(
               "project info from task detail:" + JSON.stringify(data[0])
             );
@@ -125,8 +126,11 @@ function TaskDetail(props) {
     }
   };
 
-  const openCommentBox = () => {
-    setIsOpenCommentBox(true);
+  const openCommentBox = async () => {
+    await setIsOpenCommentBox(true);
+    if (commentRef.current) {
+      commentRef.current.focus();
+    }
   };
 
   const closeCommentBox = () => {
@@ -225,6 +229,7 @@ function TaskDetail(props) {
               <div className="comment_body">
                 <ReactQuill
                   id="description"
+                  ref={commentRef}
                   className="comment_box"
                   theme="snow"
                   name="comments"
@@ -313,9 +318,9 @@ function TaskDetail(props) {
               value={priority}
               onChange={handleChange}
             >
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
             </select>
           </div>
           <div className="task_detail_section">

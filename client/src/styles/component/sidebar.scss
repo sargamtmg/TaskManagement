@@ -1,7 +1,7 @@
 .sidebar_wrapper {
   width: 25vw;
   height: 100vh;
-  background-color: cornflowerblue;
+  background-color: $sidebar_bgColor;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,10 +17,10 @@
     .application_name {
       font-weight: bold;
       font-size: 2em;
-      color: white;
+      color: $app_name;
     }
     .application_tag {
-      color: #ddd;
+      color: $app_tagline;
       text-align: center;
     }
   }

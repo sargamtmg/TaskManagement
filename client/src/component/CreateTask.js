@@ -1,24 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 function CreateTask(props) {
+  //const [assignee,setAssignee] = useState(props.currentUser?.username);
   const [formData, setFormData] = useState({
-    title: "",
+    summary: "",
     description: "",
-    priority: "",
+    priority: "high",
     status: "to_do",
-    assignTo: "",
-    story_point: "",
-    comment: "",
+    assign_to: props.currentUser?._id,
+    story_point: 0,
+    comment: [],
     approved: {
       is_approved: false,
-      approved_by: "",
     },
-    team: "",
+    project: props.projectId,
   });
 
   const [description, setDescription] = useState("");
+  const summary_input = useRef(null);
+
+  const priorityList = ["low", "medium", "high"];
+
+  useEffect(() => {
+    if (summary_input.current) {
+      summary_input.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     setFormData((prevState) => ({
@@ -43,8 +52,10 @@ function CreateTask(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("form data: " + JSON.stringify(formData));
+    let url = `http://localhost:8000/task/${props.currentUser._id}`;
     try {
-      const response = await fetch("http://localhost:8000/task", {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,20 +71,19 @@ function CreateTask(props) {
         description: "",
         priority: "",
         status: "to_do",
-        assign_to: "",
+        assign_to: props.currentUser?._id,
         storyPoint: "",
         comments: [],
         approved: {
           is_approved: false,
-          approved_by: "",
         },
-        team: "",
+        project: props.projectId,
       });
       props.close();
       alert("Task created successfully");
     } catch (error) {
       console.error("Error creating task:", error);
-      alert("Error creating task. Please try again.");
+      alert("Error creating task : " + error);
     }
   };
 
@@ -88,87 +98,104 @@ function CreateTask(props) {
             </div>
           </div>
         </div>
-        <form className="taskForm" onSubmit={handleSubmit}>
-          <div className="formItemSummary">
-            <div className="title">Summary : </div>
-            <input
-              type="text"
-              className="inputForm"
-              id="title"
-              name="summary"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="formItemDescription">
-            <div className="title">Description : </div>
-            <ReactQuill
-              id="description"
-              className="inputForm"
-              theme="snow"
-              name="description"
-              value={description}
-              onChange={handleDescriptionChange}
-            />
-          </div>
-          <div className="formItemPriority">
-            <div className="title">Priority : </div>
-            <select
-              className="inputForm"
-              id="priority"
-              name="priority"
-              value={formData.priority}
-              onChange={handleChange}
-              required
-            >
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
-          </div>
-          <div className="formItemStatus">
-            <div className="title">Status</div>
-            <select
-              className="inputForm"
-              id="status"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              required
-            >
-              <option value="to_do">To be done</option>
-              <option value="development">Development</option>
-              <option value="review">review</option>
-              <option value="done">done</option>
-            </select>
-          </div>
-          <div className="formItemAssign">
-            <div className="title">Assigned to : </div>
-            <input
-              className="inputForm"
-              type="text"
-              id="assignTo"
-              name="assign_to"
-              value={formData.assign_o}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="formItemStory">
-            <div className="title">Story point</div>
-            <input
-              className="inputForm"
-              type="number"
-              id="storyPoint"
-              name="story_point"
-              value={formData.story_point}
-              onChange={handleChange}
-            />
-          </div>
-          <button className="submitButton" type="submit">
-            Create Task
-          </button>
-        </form>
+        <div className="taskFormWrapper">
+          <form className="taskForm" onSubmit={handleSubmit}>
+            <div className="formItemProject">
+              <div className="title">Project</div>
+              <input className="projectTitle" value={props.projectTitle} />
+            </div>
+            <div className="formItemSummary">
+              <div className="title">Summary : </div>
+              <input
+                type="text"
+                className="inputForm"
+                ref={summary_input}
+                id="summary_input"
+                name="summary"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="formItemDescription">
+              <div className="title">Description : </div>
+              <ReactQuill
+                id="description"
+                className="inputForm"
+                theme="snow"
+                name="description"
+                value={description}
+                onChange={handleDescriptionChange}
+              />
+            </div>
+            <div className="formItemPriority">
+              <div className="title">Priority : </div>
+              <select
+                className="inputForm"
+                id="priority"
+                name="priority"
+                value={formData.priority}
+                onChange={handleChange}
+                required
+              >
+                {priorityList?.map((priorityItem, index) => {
+                  return (
+                    <option value={priorityItem} key={index}>
+                      {priorityItem}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="formItemStatus">
+              <div className="title">Status</div>
+              <select
+                className="inputForm"
+                id="status"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                required
+              >
+                <option value="to_do">To be done</option>
+                <option value="development">Development</option>
+                <option value="review">review</option>
+                <option value="done">done</option>
+              </select>
+            </div>
+            <div className="formItemAssign">
+              <div className="title">Assigned to : </div>
+              <select
+                className="inputForm"
+                name="assign_to"
+                value={formData.assign_to}
+                onChange={handleChange}
+              >
+                {props.projectMembers?.map((member, index) => {
+                  return (
+                    <option key={index} value={member._id}>
+                      {member.username}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="formItemStory">
+              <div className="title">Story point</div>
+              <input
+                className="inputForm"
+                type="number"
+                id="storyPoint"
+                name="story_point"
+                value={formData.story_point}
+                onChange={handleChange}
+              />
+            </div>
+            <button className="submitButton" type="submit">
+              Create Task
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

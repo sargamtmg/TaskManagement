@@ -3,10 +3,11 @@ const Task = require("../model/taskModel");
 exports.getAllTask = (req, res) => {
   const { userId, projectId, status } = req.query;
   const condition = {};
-  condition.assign_to = userId ? userId : "";
-  condition.project = projectId ? projectId : "";
-  condition.status = status ? status : "";
+  userId ? (condition.assign_to = userId) : null;
+  projectId ? (condition.project = projectId) : null;
+  status ? (condition.status = status) : null;
   Task.find(condition)
+    .populate("assign_to", "username")
     .then((documents) => {
       res.status(200).json(documents);
     })
@@ -17,7 +18,7 @@ exports.getAllTask = (req, res) => {
 
 exports.getTaskByTaskId = (req, res) => {
   const taskId = req.params.taskId;
-  Task.find({ _id: taskId })
+  Task.findOne({ _id: taskId })
     .populate("created_by", "username")
     .populate("assign_to", "username")
     .populate("approved.approved_by", "username")

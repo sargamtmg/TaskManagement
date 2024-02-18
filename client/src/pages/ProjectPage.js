@@ -4,6 +4,7 @@ import UserProfile from "../component/UserProfile";
 import TaskDashboard from "../component/TaskDashboard";
 import CreateTask from "../component/CreateTask";
 import { useParams } from "react-router-dom";
+import { truncatedText } from "../utilities/helper";
 
 function ProjectPage() {
   const [projectInfo, setProjectInfo] = useState([]);
@@ -23,7 +24,7 @@ function ProjectPage() {
       let url = `http://localhost:8000/project/${projectId}`;
       const response1 = await fetch(url);
       const data1 = await response1.json();
-      setProjectInfo(data1[0]);
+      setProjectInfo(data1);
       console.log("project Info : ", data1[0]);
     } catch (error) {
       alert("Error fetching project Info: " + error);
@@ -80,18 +81,18 @@ function ProjectPage() {
             <UserProfile userInfo={currentUser} />
           </div>
           <div className="project_details">
-            <div className="project_title">{projectInfo.title}</div>
+            <div className="project_title">
+              {truncatedText(projectInfo.title, 40)}
+            </div>
             <div className="project_members">
               Members:
-              {projectInfo.members &&
-                projectInfo.members.length &&
-                projectInfo.members.map((member, index) => {
-                  return (
-                    <div key={index} className="project_member">
-                      {member.username}
-                    </div>
-                  );
-                })}
+              {projectInfo?.members?.map((member, index) => {
+                return (
+                  <div key={index} className="project_member">
+                    {member.username}
+                  </div>
+                );
+              })}
               <select
                 className="add_member_select"
                 name="userId"
@@ -120,7 +121,15 @@ function ProjectPage() {
           </div>
         </div>
       </div>
-      {isTaskModalOpen ? <CreateTask close={closeCreateTask} /> : null}
+      {isTaskModalOpen ? (
+        <CreateTask
+          close={closeCreateTask}
+          projectId={projectInfo?._id}
+          projectTitle={projectInfo?.title}
+          projectMembers={projectInfo?.members}
+          currentUser={currentUser}
+        />
+      ) : null}
     </>
   );
 }

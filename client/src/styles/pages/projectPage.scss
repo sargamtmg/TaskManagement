@@ -17,12 +17,11 @@
     }
     .project_details {
       width: 80%;
-      height: 15%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       .project_title {
-        font-size: 1.8em;
+        font-size: 1.9em;
         font-weight: bold;
       }
       .project_members {
@@ -35,7 +34,7 @@
           border-radius: 5px;
           font-size: 0.8em;
           font-weight: 600;
-          background-color: #ccc;
+          background-color: $project_mem;
         }
         .add_member_select {
           font-weight: 600;
@@ -52,7 +51,7 @@
       justify-content: flex-end;
       .create_task_button {
         padding: 5px;
-        background-color: aqua;
+        background-color: $task_button;
         border-radius: 5px;
         font-weight: bold;
         cursor: pointer;

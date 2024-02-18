@@ -6,7 +6,8 @@
     display: flex;
     align-items: center;
     .profile {
-      background-color: aliceblue;
+      background-color: $profile_bg;
+      color: $white;
       height: 80%;
       aspect-ratio: 1;
       font-weight: bold;
@@ -20,7 +21,7 @@
       flex-direction: column;
       margin-left: 5px;
       .user_title {
-        color: #555;
+        color: $user_title;
         font-weight: 600;
       }
       .user_username {
