@@ -39,7 +39,7 @@ $user_title: #555;
 //task board
 $board_color: #5b82d2;
 $board_title: #305bb0;
-$board_back: #f5f9ff;
+$board_back: #f3f8ff;
 
 //task card
 $task_card_bg: white;
@@ -49,3 +49,7 @@ $task_card_priority_low: #fc4802;
 $task_card_priority_medium: #ef270c;
 $task_card_priority_high: #e9190f;
 $task_card_story_bg: #e1e0e0;
+
+//create task modal
+$create_task_heading_bg: $board_color;
+$task_form_bg: #feffff;

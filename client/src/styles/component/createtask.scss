@@ -11,12 +11,13 @@
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   overflow: auto;
   .createTaskModal {
-    width: 80%;
+    width: 70%;
     height: 90%;
     .createTaskHeading {
       width: 100%;
-      height: 10%;
-      background-color: #e9967a;
+      height: 7%;
+      background-color: $create_task_heading_bg;
+      color: $white;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -30,10 +31,12 @@
           font-size: 1.3em;
         }
         .closeTaskButton {
-          background-color: darkcyan;
           width: fit-content;
           padding: 5px;
           cursor: pointer;
+          .close_icon {
+            font-size: 2em;
+          }
         }
       }
     }
@@ -46,7 +49,7 @@
         display: none;
       }
       .taskForm {
-        background-color: white;
+        background-color: $white;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -62,12 +65,14 @@
           justify-content: start;
           .title {
             font-size: larger;
+            margin-bottom: 10px;
           }
           .projectTitle {
             margin-left: 10px;
             flex-grow: 1;
             height: 35%;
-            background-color: rgba(0, 0, 0, 0.2);
+            font-size: 1em;
+            background-color: rgba(0, 0, 0, 0.1);
             cursor: not-allowed;
           }
         }
@@ -83,6 +88,7 @@
           .inputForm {
             width: 100%;
             padding: 3px;
+            font-size: 1em;
           }
         }
         .formItemDescription {
@@ -109,10 +115,11 @@
             font-size: larger;
           }
           .inputForm {
-            width: 40%;
+            width: 30%;
             height: 35%;
+            font-size: 1.1em;
             padding: 2px;
-            background-color: #ceecf8;
+            background-color: #e6f5fc;
             border: 2px solid transparent;
             &:hover {
               border: 2px solid #1e90ff;
@@ -129,10 +136,11 @@
             font-size: larger;
           }
           .inputForm {
-            width: 40%;
+            width: 30%;
             height: 35%;
+            font-size: 1.1em;
             padding: 2px;
-            background-color: #ceecf8;
+            background-color: #e6f5fc;
             border: 2px solid transparent;
             &:hover {
               border: 2px solid #1e90ff;
@@ -151,9 +159,10 @@
           }
           .inputForm {
             margin-left: 10px;
-            width: 40%;
+            width: 30%;
             height: 35%;
             padding: 2px;
+            font-size: 1em;
           }
         }
         .formItemStory {
@@ -171,15 +180,17 @@
             width: 10%;
             height: 35%;
             padding: 2px;
+            font-size: 1em;
           }
         }
         .submitButton {
           position: absolute;
           right: 2em;
           bottom: 1em;
-          background-color: cornflowerblue;
-          color: white;
+          background-color: $task_button;
+          font-weight: bold;
           padding: 5px;
+          border-radius: 3px;
         }
       }
     }

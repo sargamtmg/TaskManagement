@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 function CreateTask(props) {
   //const [assignee,setAssignee] = useState(props.currentUser?.username);
@@ -94,7 +96,7 @@ function CreateTask(props) {
           <div className="headingwrapper">
             <div className="heading">Create Task</div>
             <div className="closeTaskButton" onClick={props.close}>
-              Close
+              <FontAwesomeIcon icon={faClose} className="close_icon" />
             </div>
           </div>
         </div>
@@ -159,8 +161,8 @@ function CreateTask(props) {
               >
                 <option value="to_do">To be done</option>
                 <option value="development">Development</option>
-                <option value="review">review</option>
-                <option value="done">done</option>
+                <option value="review">Review</option>
+                <option value="done">Done</option>
               </select>
             </div>
             <div className="formItemAssign">
