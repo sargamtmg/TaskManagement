@@ -82,7 +82,7 @@ function ProjectPage() {
           </div>
           <div className="project_details">
             <div className="project_title">
-              {truncatedText(projectInfo.title, 40)}
+              {truncatedText(projectInfo.title, 50)}
             </div>
             <div className="project_members">
               Members:

@@ -52,11 +52,19 @@
         flex-direction: row;
         flex-wrap: wrap;
         .project_card_section {
-          width: 25%;
+          width: 33.33%;
+          aspect-ratio: 0.9;
           padding: 1em 0px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          .project_card_link {
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+          }
         }
       }
       .home_no_projects {

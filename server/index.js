@@ -69,6 +69,9 @@ app.post("/task/update/:taskId", taskController.updateTask);
 //add Comment in task
 app.post("/task/addcomment/:taskId", taskController.addCommentTask);
 
+//get progress of project
+app.get("/project/progress/:projectId", taskController.getProgress);
+
 // create project
 app.post("/project/:userId", projectController.createProject);
 

@@ -82,3 +82,29 @@ exports.addCommentTask = (req, res) => {
       res.status(500).json({ "error adding comment ": err });
     });
 };
+
+//get progress percentage
+exports.getProgress = (req, res) => {
+  const projectId = req.params.projectId;
+  Task.find({ project: projectId }, { status: 1 })
+    .then((document) => {
+      let total = 0;
+      let complete = 0;
+      if (!document.length) {
+        res.status(200).json({ progress: 0 });
+      }
+      document.map((data) => {
+        total += 3;
+        if (data.status === "to_do") complete += 0;
+        else if (data.status === "development") complete += 1;
+        else if (data.status === "review") complete += 2;
+        else if (data.status === "done") complete += 3;
+      });
+      // console.log("progress : " + complete);
+      // console.log("total :" + total);
+      res.status(200).json({ progress: ((complete / total) * 100).toFixed(2) });
+    })
+    .catch((err) => {
+      res.status(500).json({ "error getting progress": err });
+    });
+};

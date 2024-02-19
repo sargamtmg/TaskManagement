@@ -1,5 +1,5 @@
 import ProgressBar from "@ramonak/react-progress-bar";
-import { formatDate } from "../utilities/helper";
+import { truncatedText, formatDate } from "../utilities/helper";
 
 function ProjectCard(props) {
   const deadlineString = props.projectInfo.deadline;
@@ -7,7 +7,9 @@ function ProjectCard(props) {
   return (
     <div className="projectcard_wrapper">
       <div className="projectcard">
-        <div className="projectcard_title">{props.projectInfo.title}</div>
+        <div className="projectcard_title">
+          {truncatedText(props.projectInfo.title, 60)}
+        </div>
         <div className="projectcard_deadline">
           Deadline: {formatDate(deadline)}
         </div>

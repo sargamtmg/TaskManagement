@@ -99,7 +99,10 @@ function Home() {
                 projectList.map((projectInfo, index) => {
                   return (
                     <div className="project_card_section" key={index}>
-                      <Link to={`/project/${projectInfo._id}`}>
+                      <Link
+                        to={`/project/${projectInfo._id}`}
+                        className="project_card_link"
+                      >
                         <ProjectCard projectInfo={projectInfo} key={index} />
                       </Link>
                     </div>
