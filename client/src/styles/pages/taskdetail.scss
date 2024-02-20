@@ -1,5 +1,5 @@
 .task_detail_wrapper {
-  background-color: bisque;
+  background-color: $task_page_bg;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -13,31 +13,50 @@
     &::-webkit-scrollbar {
       display: none;
     }
-    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    background-color: $task_main_detail_bg;
+    .application_wrapper {
+      align-self: flex-start;
+      justify-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2%;
+      margin-left: 2%;
+      .application_name {
+        font-weight: bold;
+        font-size: 2.3em;
+        color: $app_name_dark;
+      }
+    }
     .task_main_detail {
-      padding: 0 10%;
+      padding: 0 12%;
       .task_project {
-        margin-top: 8%;
+        margin-top: 4%;
         margin-bottom: 4%;
-        color: #333;
+        font-size: 1em;
+        text-align: center;
+        .project_title {
+          font-weight: 700;
+        }
       }
       .task_summary {
         font-size: 2em;
+        font-weight: 700;
         margin-bottom: 5px;
       }
       .task_created_by {
         display: flex;
         margin-bottom: 7vh;
-        .created_by_profile {
-          height: 2em;
-          aspect-ratio: 1;
-          border-radius: 50%;
-          background-color: chocolate;
-        }
+        color: #666;
+        font-size: 0.9em;
         .created_by_name {
           height: 100%;
           align-self: center;
-          margin-left: 10px;
+          .username_creater {
+            font-weight: 600;
+          }
         }
       }
       .task_description {
@@ -99,10 +118,15 @@
               cursor: pointer;
             }
             .comment_button {
-              background-color: #a89393;
+              background-color: $task_other_detail_bg;
+              color: $white;
+              padding: 5px;
+              border-radius: 3px;
             }
             .cancel_button {
               background-color: #ccc;
+              padding: 5px;
+              border-radius: 3px;
             }
           }
         }
@@ -115,7 +139,7 @@
     }
   }
   .task_other_details_wrapper {
-    background-color: burlywood;
+    background-color: $task_other_detail_bg;
     height: 100%;
     flex-grow: 1;
     display: flex;
@@ -127,36 +151,52 @@
     }
     .task_other_details {
       margin-left: 20%;
+      display: flex;
+      flex-direction: column;
+
       .task_approve {
         margin-bottom: 2em;
         font-size: larger;
         font-weight: 600;
+        width: fit-content;
         .approved {
           .approved_message {
+            background-color: $white;
+            padding: 5px;
             color: green;
+            border-radius: 5px;
+            .approved_check {
+              margin-left: 4px;
+            }
           }
         }
         .not_approved {
-          color: rgba(255, 28, 28, 0.998);
+          color: red;
+          background-color: $white;
+          padding: 5px;
+          border-radius: 5px;
         }
       }
       .task_detail_section {
         margin-bottom: 3em;
         .task_heading {
-          font-size: larger;
+          font-size: 1.3em;
           font-weight: 600;
+          color: $white;
         }
         .task_info {
-          margin-left: 0.5em;
-          font-size: large;
+          font-size: 1.4em;
+          font-weight: 600;
         }
         .task_status_info {
           appearance: none;
           -webkit-appearance: none;
-          background-color: burlywood;
+          background-color: $task_other_detail_bg;
           border: none;
+          padding: 5px;
+          cursor: pointer;
           &:hover {
-            background-color: rgb(225, 175, 109);
+            background-color: $task_other_detail_option;
           }
         }
       }

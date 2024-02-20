@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import Comment from "../component/Comment";
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleCheck,
+  faExclamation,
+} from "@fortawesome/free-solid-svg-icons";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -28,6 +33,10 @@ function TaskDetail(props) {
     project: "",
   });
   const { taskId } = useParams();
+
+  const application = {
+    name: "TaskWise",
+  };
 
   const getTaskInfo = () => {
     let url = "http://localhost:8000/task/" + taskId;
@@ -193,15 +202,21 @@ function TaskDetail(props) {
   return (
     <div className="task_detail_wrapper">
       <div className="task_main_detail_wrapper">
+        <div className="application_wrapper">
+          <div className="application_name">{application.name}</div>
+        </div>
         <div className="task_main_detail">
           <div className="task_project">
-            Project : {taskInfo?.project?.title}
+            <span className="project_title">Project</span> :{" "}
+            {taskInfo?.project?.title}
           </div>
           <div className="task_summary">{taskInfo?.summary}</div>
           <div className="task_created_by">
-            <div className="created_by_profile"></div>
             <span className="created_by_name">
-              {taskInfo?.created_by?.username} has created this issue
+              <span className="username_creater">
+                {taskInfo?.created_by?.username}
+              </span>{" "}
+              has created this issue
             </span>
           </div>
           <div className="task_description">
@@ -270,13 +285,25 @@ function TaskDetail(props) {
           <div className="task_approve">
             {taskInfo?.approved?.is_approved ? (
               <div className="approved">
-                <div className="approved_message">Approved</div>
+                <div className="approved_message">
+                  Approved
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    className="approved_check"
+                  />
+                </div>
                 <div className="approved_username">
                   by {taskInfo?.approved?.approved_by?.username}
                 </div>
               </div>
             ) : (
-              <div className="not_approved">Not Approved Yet</div>
+              <div className="not_approved">
+                Not Approved{" "}
+                <FontAwesomeIcon
+                  icon={faExclamation}
+                  className="not_approved_icon"
+                />
+              </div>
             )}
           </div>
           <div className="task_detail_section">
@@ -324,7 +351,7 @@ function TaskDetail(props) {
             </select>
           </div>
           <div className="task_detail_section">
-            <div className="task_heading">Story point</div>
+            <div className="task_heading">Story point:</div>
             <div className="task_story_point_info task_info">
               {taskInfo?.story_point}
             </div>

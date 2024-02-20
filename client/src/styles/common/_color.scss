@@ -28,6 +28,8 @@ $white: #ffffff;
 $sidebar_bgColor: #78a0e5;
 $app_name: white;
 $app_tagline: #ddd;
+$app_name_dark: #305bb0;
+$app_tagline_dark: #5b82d2;
 
 $project_mem: #ccc;
 $task_button: #ee8434;
@@ -60,3 +62,9 @@ $create_proect_button: $task_button;
 
 //project card
 $project_card_bg: #4368b2;
+
+//task detail page
+$task_page_bg: $white;
+$task_main_detail_bg: $white;
+$task_other_detail_bg: #5b82d2;
+$task_other_detail_option: #436bbae4;
