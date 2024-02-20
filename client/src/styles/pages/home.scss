@@ -1,5 +1,4 @@
 .home_wrapper {
-  background-color: cadetblue;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -8,6 +7,7 @@
     width: 100%;
     height: 100%;
     display: flex;
+    background-image: $home_bg;
     justify-content: center;
     overflow-y: scroll;
     &::-webkit-scrollbar {
@@ -37,7 +37,7 @@
           padding: 10px;
           border-radius: 5px;
           font-weight: bold;
-          background-color: white;
+          background-color: $create_proect_button;
           cursor: pointer;
         }
       }
