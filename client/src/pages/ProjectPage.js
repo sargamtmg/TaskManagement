@@ -55,7 +55,7 @@ function ProjectPage() {
       body: JSON.stringify({ userId: value }),
     })
       .then(() => {
-        alert("Successfully added member");
+        console.log("Successfully added member");
         fetchingData();
       })
       .catch((err) => {

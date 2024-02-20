@@ -75,6 +75,9 @@ app.get("/project/progress/:projectId", taskController.getProgress);
 // create project
 app.post("/project/:userId", projectController.createProject);
 
+//delete project
+app.delete("/project/:projectId", projectController.deleteProject);
+
 // get projects by userId
 app.get("/projects/:userId", projectController.getProjects);
 

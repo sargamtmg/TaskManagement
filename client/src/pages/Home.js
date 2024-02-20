@@ -16,7 +16,7 @@ function Home() {
     password: "$2b$10$SUrZfAWChsc1hjlY7az/vOmyZ0wzPfoU5QUWBhcdUXyoqqPJgv4Ha",
   };
 
-  useEffect(() => {
+  const fetchAllProject = () => {
     fetch(`http://localhost:8000/projects/${currentUser._id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -25,6 +25,10 @@ function Home() {
       .catch((err) => {
         alert("error fetching error : " + err);
       });
+  };
+
+  useEffect(() => {
+    fetchAllProject();
   }, []);
 
   const openCreateTask = () => {
@@ -103,7 +107,11 @@ function Home() {
                         to={`/project/${projectInfo._id}`}
                         className="project_card_link"
                       >
-                        <ProjectCard projectInfo={projectInfo} key={index} />
+                        <ProjectCard
+                          projectInfo={projectInfo}
+                          key={index}
+                          fetchAllProject={fetchAllProject}
+                        />
                       </Link>
                     </div>
                   );

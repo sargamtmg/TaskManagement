@@ -71,3 +71,18 @@ export const formatTime = (date) => {
   // Construct the final formatted date string
   return `${hours}:${minutes}${ampm} ${day} ${month}, ${year}`;
 };
+
+export const fixDecimal = (num) => {
+  num = Number(num);
+  // Check if the number has more than one decimal place
+  const numStr = num.toString();
+  const decimalIndex = numStr.indexOf(".");
+
+  // If the number has more than one decimal place, round it to two decimal places
+  if (decimalIndex !== -1 && numStr.substring(decimalIndex + 1).length > 1) {
+    return num.toFixed(2);
+  } else {
+    // Otherwise, return the number as it is
+    return num;
+  }
+};

@@ -82,7 +82,7 @@ function CreateTask(props) {
         project: props.projectId,
       });
       props.close();
-      alert("Task created successfully");
+      console.log("Task created successfully");
     } catch (error) {
       console.error("Error creating task:", error);
       alert("Error creating task : " + error);

@@ -21,6 +21,17 @@ exports.createProject = (req, res) => {
     });
 };
 
+exports.deleteProject = (req, res) => {
+  const projectId = req.params.projectId;
+  Project.deleteOne({ _id: projectId })
+    .then(() => {
+      res.status(200).json({ message: "project deleted sucessfully" });
+    })
+    .catch((err) => {
+      res.status(500).json({ "error deleating project ": err });
+    });
+};
+
 exports.getProjects = (req, res) => {
   const userId = req.params.userId;
   Project.find({ members: { $in: [userId] } })
