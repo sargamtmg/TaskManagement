@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import DatePicker from "react-datepicker";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 function CreateProject(props) {
   const [formData, setFormData] = useState({});
   const [startDate, setStartDate] = useState(new Date());
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      titleRef.current.focus();
+    }
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -38,7 +48,7 @@ function CreateProject(props) {
         <div className="project_modal_heading">
           <div className="project_modal_title">Create Project</div>
           <div className="project_modal_close" onClick={props.close}>
-            Close
+            <FontAwesomeIcon icon={faClose} className="close_icon" />
           </div>
         </div>
         <form className="create_project_form" onSubmit={handleFormSubmit}>
@@ -46,6 +56,7 @@ function CreateProject(props) {
             <div className="project_title">Title</div>
             <input
               type="text"
+              ref={titleRef}
               className="project_title_input"
               name="title"
               value={formData.title}
