@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function TaskStatusBoard(props) {
   const [statusTask, setStatusTask] = useState(null);
 
-  useEffect(() => {
+  const fetchTask = () => {
     console.log("userID : " + props.userId);
     console.log("projectId : " + props.projectId);
     console.log("status : " + props.status);
@@ -25,6 +25,10 @@ function TaskStatusBoard(props) {
       .catch((err) => {
         console.log("error getting data" + err);
       });
+  };
+
+  useEffect(() => {
+    fetchTask();
   }, [props.projectId]);
 
   return (
@@ -36,7 +40,11 @@ function TaskStatusBoard(props) {
             ? statusTask.map((taskitem, index) => {
                 return (
                   <Link to={`/task/${taskitem._id}`} className="task_link">
-                    <TaskCard key={index} taskInfo={taskitem} />
+                    <TaskCard
+                      key={index}
+                      taskInfo={taskitem}
+                      fetchTask={fetchTask}
+                    />
                   </Link>
                 );
               })
