@@ -100,8 +100,6 @@ exports.getProgress = (req, res) => {
           else if (data.status === "review") complete += 2;
           else if (data.status === "done") complete += 3;
         });
-        // console.log("progress : " + complete);
-        // console.log("total :" + total);
         res
           .status(200)
           .json({ progress: ((complete / total) * 100).toFixed(2) });
@@ -109,5 +107,36 @@ exports.getProgress = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ "error getting progress": err });
+    });
+};
+
+exports.getTaskStatusNumber = (req, res) => {
+  const { userId } = req.params;
+  Task.find({ assign_to: userId })
+    .populate("status")
+    .then((documents) => {
+      let all_task_num = 0;
+      let todo_num = 0;
+      let development_num = 0;
+      let review_num = 0;
+      let done_num = 0;
+      documents.map((data) => {
+        all_task_num++;
+        if (data.status === "to_do") todo_num++;
+        else if (data.status === "development") development_num++;
+        else if (data.status === "review") review_num++;
+        else if (data.status === "done") done_num++;
+      });
+      let num = {
+        all_task: all_task_num,
+        to_do: todo_num,
+        development: development_num,
+        review: review_num,
+        done: done_num,
+      };
+      res.status(200).json(num);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
     });
 };

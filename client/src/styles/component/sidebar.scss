@@ -37,6 +37,10 @@
       font-weight: bold;
       padding: 0.5em;
       cursor: pointer;
+      .home_link {
+        text-decoration: none;
+        color: inherit;
+      }
     }
     .menu_section {
       padding: 0.5em;
@@ -49,6 +53,10 @@
         padding: 0.4em 0 0.4em 0;
         font-weight: 450;
         line-height: 1.2em;
+        .shortcut_project_link {
+          text-decoration: none;
+          color: inherit;
+        }
       }
       .project_item_menu {
         cursor: pointer;
