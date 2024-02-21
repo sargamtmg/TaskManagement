@@ -81,14 +81,14 @@ function Sidebar(props) {
               {projectList?.length ? (
                 projectList.map((projectItem, index) => {
                   return (
-                    <div className="project_item_menu item_menu" key={index}>
-                      <Link
-                        to={`/project/${projectItem._id}`}
-                        className="shortcut_project_link"
-                      >
+                    <Link
+                      to={`/project/${projectItem._id}`}
+                      className="shortcut_project_link"
+                    >
+                      <div className="project_item_menu item_menu" key={index}>
                         {truncatedText(projectItem.title, 70)}
-                      </Link>
-                    </div>
+                      </div>
+                    </Link>
                   );
                 })
               ) : (

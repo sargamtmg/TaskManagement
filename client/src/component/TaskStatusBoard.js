@@ -25,7 +25,7 @@ function TaskStatusBoard(props) {
       .catch((err) => {
         console.log("error getting data" + err);
       });
-  }, []);
+  }, [props.projectId]);
 
   return (
     <div className="status_section">

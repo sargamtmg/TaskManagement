@@ -1,7 +1,7 @@
 import TaskStatusBoard from "./TaskStatusBoard";
 
-const statuses = ["to_do", "development", "review", "done"];
 function TaskDashboard(props) {
+  const statuses = ["to_do", "development", "review", "done"];
   return (
     <div className="taskboard">
       {statuses.map((status, index) => {

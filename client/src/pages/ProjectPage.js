@@ -41,7 +41,7 @@ function ProjectPage() {
 
   useEffect(() => {
     fetchingData();
-  }, []);
+  }, [projectId]);
 
   const handleAddMember = (e) => {
     const { name, value } = e.target;

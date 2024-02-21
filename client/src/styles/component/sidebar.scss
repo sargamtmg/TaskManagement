@@ -48,14 +48,14 @@
         font-size: 1.2em;
         font-weight: bold;
       }
-      .item_menu {
-        margin-left: 1.5em;
-        padding: 0.4em 0 0.4em 0;
-        font-weight: 450;
-        line-height: 1.2em;
-        .shortcut_project_link {
-          text-decoration: none;
-          color: inherit;
+      .shortcut_project_link {
+        text-decoration: none;
+        color: inherit;
+        .item_menu {
+          margin-left: 1.5em;
+          padding: 0.4em 0 0.4em 0;
+          font-weight: 450;
+          line-height: 1.2em;
         }
       }
       .project_item_menu {
