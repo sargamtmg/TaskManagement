@@ -48,7 +48,7 @@ function TaskStatusBoard(props) {
                   </Link>
                 );
               })
-            : 0}
+            : null}
         </div>
       </div>
     </div>

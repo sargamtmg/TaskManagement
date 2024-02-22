@@ -37,6 +37,7 @@ function Home() {
 
   const closeCreateProject = () => {
     setIsCreateProjectOpen(false);
+    window.location.reload();
   };
   const monthNames = [
     "Jan",

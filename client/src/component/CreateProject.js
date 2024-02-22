@@ -23,12 +23,13 @@ function CreateProject(props) {
       [name]: value,
     }));
   };
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
     formData.deadline = startDate;
     console.log(formData);
     let url = "http://localhost:8000/project/" + props.currentUser._id;
     console.log(url);
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,6 +42,8 @@ function CreateProject(props) {
       .catch((err) => {
         console.log("error => " + err);
       });
+
+    props.close();
   };
   return (
     <div className="create_project_modal_wrapper">
