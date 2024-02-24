@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 
 function Login() {
-  const [authenticated, setAuthenticated] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -16,36 +14,36 @@ function Login() {
     });
   };
 
-  const handleRegister = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      let url = "http://localhost:8000/user/auth";
+      let url = "http://localhost:8000/user/login";
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
+        credentials: "include",
       });
       if (response.ok) {
         alert("user authenticate");
-        setAuthenticated(true);
         setUserData({
           username: "",
           password: "",
         });
+        window.location.href = "/";
       } else {
         throw new Error("Failed to login");
       }
     } catch (err) {
-      alert("error creating user: " + err.message);
+      alert("error logging in user: " + err.message);
     }
   };
 
-  return authenticated ? (
-    <Navigate to="/" />
-  ) : (
+  return (
     <div className="login_wrapper">
-      <form className="login_form" onSubmit={handleRegister}>
+      <form className="login_form" onSubmit={handleLogin}>
         <div className="username">
           <input
             type="text"

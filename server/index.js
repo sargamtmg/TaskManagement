@@ -1,22 +1,25 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const JWT = require("jsonwebtoken");
 const connectToMongoDB = require("./db.js");
 const { ObjectId } = require("mongodb");
 const projectController = require("./controllers/projectController.js");
 const taskController = require("./controllers/taskController.js");
 const userController = require("./controllers/userController.js");
+const authenticateToken = require("./controllers/authenticateToken.js");
 const mongoose = require("mongoose");
 
 const corsOptions = {
   origin: "http://localhost:3000",
+  credentials: true,
 };
 
 const app = express();
 app.use(cors(corsOptions));
-const port = 8000;
-
 app.use(express.json());
+app.use(cookieParser());
+const port = 8000;
 
 // let db;
 // // Connect to MongoDB
@@ -43,13 +46,13 @@ mongoose.connection.on("connected", () => {
 });
 
 //get all users
-app.get("/user", userController.getUsers);
+app.get("/user", authenticateToken.authenticateToken, userController.getUser);
 
 //create user
 app.post("/user", userController.createUser);
 
 //authenticate user
-app.post("/user/auth", userController.authenticateUser);
+app.post("/user/login", userController.login);
 
 //get all tasks
 app.get("/task", taskController.getAllTask);

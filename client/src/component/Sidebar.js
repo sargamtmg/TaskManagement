@@ -84,8 +84,9 @@ function Sidebar(props) {
                     <Link
                       to={`/project/${projectItem._id}`}
                       className="shortcut_project_link"
+                      key={index}
                     >
-                      <div className="project_item_menu item_menu" key={index}>
+                      <div className="project_item_menu item_menu">
                         {truncatedText(projectItem.title, 70)}
                       </div>
                     </Link>

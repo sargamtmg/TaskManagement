@@ -16,8 +16,8 @@ function Home() {
     password: "$2b$10$SUrZfAWChsc1hjlY7az/vOmyZ0wzPfoU5QUWBhcdUXyoqqPJgv4Ha",
   };
 
-  const fetchAllProject = () => {
-    fetch(`http://localhost:8000/projects/${currentUser._id}`)
+  const fetchAllProject = async () => {
+    await fetch(`http://localhost:8000/projects/${currentUser?._id}`)
       .then((response) => response.json())
       .then((data) => {
         setProjectList(data);
