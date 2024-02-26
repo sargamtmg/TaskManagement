@@ -7,6 +7,7 @@ import { formatDate } from "../utilities/helper";
 import { Link } from "react-router-dom";
 
 function Home() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false);
   const [projectList, setProjectList] = useState([]);
 
@@ -15,6 +16,20 @@ function Home() {
     username: "Sargamtmg",
     password: "$2b$10$SUrZfAWChsc1hjlY7az/vOmyZ0wzPfoU5QUWBhcdUXyoqqPJgv4Ha",
   };
+
+  //authenticate user
+  useEffect(() => {
+    fetch("http://localhost:8000/auth-check", {
+      credentials: "include",
+    }).then((response) => {
+      if (!response.ok) {
+        console.log("authenticated false");
+        setIsAuthenticated(false);
+        window.location.href = "/login";
+      }
+      setIsAuthenticated(true);
+    });
+  }, []);
 
   const fetchAllProject = async () => {
     await fetch(`http://localhost:8000/projects`, {
@@ -41,49 +56,14 @@ function Home() {
     setIsCreateProjectOpen(false);
     window.location.reload();
   };
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  // const project_list = [
-  //   {
-  //     title: "This is my first project",
-  //     deadline: "",
-  //   },
-  //   {
-  //     title: "This is my first project",
-  //     deadline: "",
-  //   },
-  //   {
-  //     title: "This is my first project",
-  //     deadline: "",
-  //   },
-  //   {
-  //     title: "This is my first project",
-  //     deadline: "",
-  //   },
-  //   {
-  //     title: "This is my first project",
-  //     deadline: "",
-  //   },
-  // ];
-  //const project_list = [];
-  const userInfo = {
-    initial: "HT",
-    username: "Harry Troy",
-  };
+
   const today = new Date();
   const todayDate = `Today, ${formatDate(today)}`;
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <>
       <div className="home_wrapper">

@@ -45,6 +45,11 @@ mongoose.connection.on("connected", () => {
   });
 });
 
+// API endpoint to check authentication
+app.get("/auth-check", authenticateToken, (req, res) => {
+  res.status(200).json({ message: "user authenticated" });
+});
+
 //get current user
 app.get("/user", authenticateToken, userController.getUser);
 

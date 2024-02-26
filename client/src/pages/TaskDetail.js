@@ -10,6 +10,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 function TaskDetail(props) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [status, setStatus] = useState();
   const [priority, setPriority] = useState();
   const [assignee, setAssignee] = useState();
@@ -37,6 +38,20 @@ function TaskDetail(props) {
   const application = {
     name: "TaskWise",
   };
+
+  //authenticate user
+  useEffect(() => {
+    fetch("http://localhost:8000/auth-check", {
+      credentials: "include",
+    }).then((response) => {
+      if (!response.ok) {
+        console.log("authenticated false");
+        setIsAuthenticated(false);
+        window.location.href = "/login";
+      }
+      setIsAuthenticated(true);
+    });
+  }, []);
 
   const getTaskInfo = () => {
     let url = "http://localhost:8000/task/taskInfo/" + taskId;
@@ -189,6 +204,10 @@ function TaskDetail(props) {
       });
     getTaskInfo();
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="task_detail_wrapper">

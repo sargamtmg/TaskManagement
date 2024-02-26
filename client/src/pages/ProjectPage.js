@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { truncatedText } from "../utilities/helper";
 
 function ProjectPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [projectInfo, setProjectInfo] = useState([]);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   //const [members, setMembers] = useState([]);
@@ -18,6 +19,20 @@ function ProjectPage() {
     password: "$2b$10$SUrZfAWChsc1hjlY7az/vOmyZ0wzPfoU5QUWBhcdUXyoqqPJgv4Ha",
   };
   const { projectId } = useParams();
+
+  //authenticate user
+  useEffect(() => {
+    fetch("http://localhost:8000/auth-check", {
+      credentials: "include",
+    }).then((response) => {
+      if (!response.ok) {
+        console.log("authenticated false");
+        setIsAuthenticated(false);
+        window.location.href = "/login";
+      }
+      setIsAuthenticated(true);
+    });
+  }, []);
 
   const fetchingData = async () => {
     try {
@@ -71,6 +86,10 @@ function ProjectPage() {
     setIsTaskModalOpen(false);
     window.location.reload();
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <>
