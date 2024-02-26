@@ -1,32 +1,59 @@
 .user_profile_section {
   width: 90%;
+  height: 10vh;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  .user {
+  .user_wrapper {
+    position: relative;
     display: flex;
-    align-items: center;
-    .profile {
-      background-color: $profile_bg;
-      color: $white;
-      height: 80%;
-      aspect-ratio: 1;
-      font-weight: bold;
+    flex-direction: column;
+    height: 70%; //this height is need to be fixed according to child height
+    .user {
       display: flex;
-      justify-content: center;
       align-items: center;
-      border-radius: 50%;
-    }
-    .user_info {
-      display: flex;
-      flex-direction: column;
-      margin-left: 5px;
-      .user_title {
-        color: $user_title;
-        font-weight: 600;
-      }
-      .user_username {
+      cursor: pointer;
+      height: fit-content;
+      .profile {
+        background-color: $profile_bg;
+        color: $white;
+        height: 80%;
+        aspect-ratio: 1;
         font-weight: bold;
-        white-space: nowrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+      }
+      .user_info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 5px;
+        .user_title {
+          color: $user_title;
+          font-weight: 600;
+        }
+        .user_username {
+          font-weight: bold;
+          white-space: nowrap;
+        }
+      }
+    }
+    .options {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 100%;
+      cursor: pointer;
+      .option {
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 8px black;
+        background-color: $white;
+        .trashCan {
+          margin-left: 2px;
+        }
       }
     }
   }

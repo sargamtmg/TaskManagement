@@ -46,7 +46,7 @@ function TaskDetail(props) {
         setTaskInfo(data);
         setStatus(data.status);
         setPriority(data.priority);
-        setAssignee(data.assign_to._id);
+        setAssignee(data.assign_to?._id);
       })
       .catch((err) => {
         alert("error fetching taskInfo : " + err);
@@ -60,7 +60,7 @@ function TaskDetail(props) {
   useEffect(() => {
     const fetchUserAndProject = async () => {
       if (taskInfo.summary) {
-        let projectUrl = `http://localhost:8000/project/${taskInfo.project._id}`;
+        let projectUrl = `http://localhost:8000/project/${taskInfo?.project._id}`;
         console.log("projectid : " + taskInfo.project._id);
         await fetch(projectUrl)
           .then((response) => response.json())

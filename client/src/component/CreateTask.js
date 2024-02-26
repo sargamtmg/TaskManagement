@@ -6,12 +6,13 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 function CreateTask(props) {
   //const [assignee,setAssignee] = useState(props.currentUser?.username);
+  const [currentUser, setCurrentUser] = useState();
   const [formData, setFormData] = useState({
     summary: "",
     description: "",
     priority: "high",
     status: "to_do",
-    assign_to: props.currentUser?._id,
+    assign_to: currentUser?._id,
     story_point: 0,
     comment: [],
     approved: {
@@ -29,14 +30,25 @@ function CreateTask(props) {
     if (summary_input.current) {
       summary_input.current.focus();
     }
+    fetch(`http://localhost:8000/user`, {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        alert("error fetching error : " + err);
+      });
   }, []);
 
   useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
       description: description,
+      assign_to: currentUser?._id,
     }));
-  }, [description]);
+  }, [description, currentUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,7 +86,7 @@ function CreateTask(props) {
         description: "",
         priority: "",
         status: "to_do",
-        assign_to: props.currentUser?._id,
+        assign_to: currentUser?._id,
         storyPoint: "",
         comments: [],
         approved: {

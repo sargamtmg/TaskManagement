@@ -70,3 +70,9 @@ exports.login = (req, res) => {
     }
   });
 };
+
+exports.logout = (req, res) => {
+  // Clear the jwt cookie
+  res.clearCookie("jwt");
+  res.status(200).json({ message: "Logout successful" });
+};

@@ -57,6 +57,9 @@ app.post("/user/register", userController.createUser);
 //authenticate user
 app.post("/user/login", userController.login);
 
+//log out
+app.post("/user/logout", userController.logout);
+
 //get all tasks
 app.get("/task", taskController.getAllTask);
 
