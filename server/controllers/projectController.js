@@ -1,7 +1,7 @@
 const Project = require("../model/projectModel");
 
 exports.createProject = (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.user?.id;
   console.log("userId ==> " + userId);
 
   const newProject = {
@@ -33,7 +33,8 @@ exports.deleteProject = (req, res) => {
 };
 
 exports.getProjects = (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.user?.id;
+  console.log(userId);
   Project.find({ members: { $in: [userId] } })
     .then((data) => {
       res.status(200).json(data);

@@ -13,7 +13,9 @@ function Sidebar(props) {
   };
 
   const fetchAllProject = async () => {
-    await fetch(`http://localhost:8000/projects/${currentUser._id}`)
+    await fetch(`http://localhost:8000/projects`, {
+      credentials: "include",
+    })
       .then((response) => response.json())
       .then((data) => {
         setProjectList(data);
@@ -22,7 +24,9 @@ function Sidebar(props) {
         alert("error fetching error : " + err);
       });
 
-    await fetch(`http://localhost:8000/task/getNumber/${currentUser._id}`)
+    await fetch(`http://localhost:8000/task/statusInfo`, {
+      credentials: "include",
+    })
       .then((response) => response.json())
       .then((data) => {
         setTaskNumber(data);

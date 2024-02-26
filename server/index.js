@@ -7,7 +7,7 @@ const { ObjectId } = require("mongodb");
 const projectController = require("./controllers/projectController.js");
 const taskController = require("./controllers/taskController.js");
 const userController = require("./controllers/userController.js");
-const authenticateToken = require("./controllers/authenticateToken.js");
+const { authenticateToken } = require("./controllers/authenticateToken.js");
 const mongoose = require("mongoose");
 
 const corsOptions = {
@@ -45,11 +45,14 @@ mongoose.connection.on("connected", () => {
   });
 });
 
+//get current user
+app.get("/user", authenticateToken, userController.getUser);
+
 //get all users
-app.get("/user", authenticateToken.authenticateToken, userController.getUser);
+app.get("/allusers", userController.getAllUser);
 
 //create user
-app.post("/user", userController.createUser);
+app.post("/user/register", userController.createUser);
 
 //authenticate user
 app.post("/user/login", userController.login);
@@ -58,10 +61,10 @@ app.post("/user/login", userController.login);
 app.get("/task", taskController.getAllTask);
 
 //get task by id
-app.get("/task/:taskId", taskController.getTaskByTaskId);
+app.get("/task/taskInfo/:taskId", taskController.getTaskByTaskId);
 
 //create task
-app.post("/task/:userId", taskController.createTask);
+app.post("/task", authenticateToken, taskController.createTask);
 
 //delete task
 app.delete("/task/:taskId", taskController.deleteTask);
@@ -69,23 +72,34 @@ app.delete("/task/:taskId", taskController.deleteTask);
 //update task
 app.post("/task/update/:taskId", taskController.updateTask);
 
+//approve task
+app.post(
+  "/task/approve/:taskId",
+  authenticateToken,
+  taskController.approveTask
+);
+
 //add Comment in task
-app.post("/task/addcomment/:taskId", taskController.addCommentTask);
+app.post(
+  "/task/addcomment/:taskId",
+  authenticateToken,
+  taskController.addCommentTask
+);
 
 //get task number assign to user
-app.get("/task/getNumber/:userId", taskController.getTaskStatusNumber);
+app.get("/task/statusInfo", authenticateToken, taskController.getStatusNum);
 
 //get progress of project
 app.get("/project/progress/:projectId", taskController.getProgress);
 
 // create project
-app.post("/project/:userId", projectController.createProject);
+app.post("/project", authenticateToken, projectController.createProject);
 
 //delete project
 app.delete("/project/:projectId", projectController.deleteProject);
 
 // get projects by userId
-app.get("/projects/:userId", projectController.getProjects);
+app.get("/projects", authenticateToken, projectController.getProjects);
 
 //get project by projectId
 app.get("/project/:projectId", projectController.getProjectByProjectId);

@@ -39,7 +39,7 @@ function TaskDetail(props) {
   };
 
   const getTaskInfo = () => {
-    let url = "http://localhost:8000/task/" + taskId;
+    let url = "http://localhost:8000/task/taskInfo/" + taskId;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -111,19 +111,17 @@ function TaskDetail(props) {
 
   const addComment = async () => {
     if (commentInput) {
-      let userId = "65cb822a2b6cd926c674ec5d";
       let url = `http://localhost:8000/task/addcomment/${taskId}`;
       let comment = {
-        commenter: userId,
         comment: commentInput,
       };
-      console.log("commenter : " + userId + " comment : " + commentInput);
       await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(comment),
+        credentials: "include",
       })
         .then(() => {
           console.log("comment added");
@@ -154,19 +152,12 @@ function TaskDetail(props) {
   };
 
   const approveTask = async () => {
-    let userId = "65cb822a2b6cd926c674ec5d";
-    const approvalData = {
-      approved: {
-        is_approved: true,
-        approved_by: userId,
-      },
-    };
-    await fetch("http://localhost:8000/task/update/" + taskInfo._id, {
+    await fetch("http://localhost:8000/task/approve/" + taskInfo._id, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(approvalData),
+      credentials: "include",
     })
       .then(() => {
         console.log("task approved");

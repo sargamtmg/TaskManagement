@@ -31,7 +31,7 @@ function ProjectPage() {
     }
 
     try {
-      const response2 = await fetch("http://localhost:8000/user");
+      const response2 = await fetch("http://localhost:8000/allusers");
       const data2 = await response2.json();
       setAllUser(data2);
     } catch (error) {

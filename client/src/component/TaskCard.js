@@ -29,7 +29,7 @@ function TaskCard(props) {
   const deleteTask = async (event) => {
     event.preventDefault();
     // Add your logic for deleting the item here
-    let url = `http://localhost:8000/task/${props.taskInfo._id}`;
+    let url = `http://localhost:8000/task/taskInfo/${props.taskInfo._id}`;
     await fetch(url, {
       method: "Delete",
       headers: {
@@ -71,7 +71,7 @@ function TaskCard(props) {
         <div className="task_details">
           <div className="task_assign_wrapper">
             <div className="task_assign">
-              {props.taskInfo.assign_to.username}
+              {props.taskInfo?.assign_to?.username}
             </div>
           </div>
           <div className="task_priority_and_story">

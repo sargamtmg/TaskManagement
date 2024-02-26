@@ -6,15 +6,13 @@ function TaskStatusBoard(props) {
   const [statusTask, setStatusTask] = useState(null);
 
   const fetchTask = () => {
-    console.log("userID : " + props.userId);
     console.log("projectId : " + props.projectId);
     console.log("status : " + props.status);
-    let userIdQuery = props.userIdaaa ? `&userId=${props.userId}` : "";
     let projectIdQuery = props.projectId ? `&projectId=${props.projectId}` : "";
     let statusQuery = props.userId ? `&status=${props.status}` : "";
-    let url = `http://localhost:8000/task?${userIdQuery}${projectIdQuery}${statusQuery}`;
+    let url = `http://localhost:8000/task?${projectIdQuery}${statusQuery}`;
     console.log(url);
-    fetch(url)
+    fetch(url, { credentials: "include" })
       .then((response) => {
         return response.json();
       })

@@ -17,7 +17,9 @@ function Home() {
   };
 
   const fetchAllProject = async () => {
-    await fetch(`http://localhost:8000/projects/${currentUser?._id}`)
+    await fetch(`http://localhost:8000/projects`, {
+      credentials: "include",
+    })
       .then((response) => response.json())
       .then((data) => {
         setProjectList(data);

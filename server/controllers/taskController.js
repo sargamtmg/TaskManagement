@@ -33,7 +33,8 @@ exports.getTaskByTaskId = (req, res) => {
 };
 
 exports.createTask = (req, res) => {
-  const { userId } = req.params;
+  let userId = req.user?.id;
+  console.log("user Id : " + userId);
   let task = new Task({
     ...req.body,
     created_by: userId,
@@ -70,9 +71,27 @@ exports.updateTask = (req, res) => {
     });
 };
 
+exports.approveTask = (req, res) => {
+  const taskId = req.params.taskId;
+  let approveupdate = {
+    approved: {
+      is_approved: true,
+      approved_by: req.user?.id,
+    },
+  };
+  Task.updateOne({ _id: taskId }, { $set: approveupdate })
+    .then(() => {
+      res.status(201).json({ message: "task approved sucessfully" });
+    })
+    .catch((err) => {
+      res.status(500).json({ "error approving task ": err });
+    });
+};
+
 exports.addCommentTask = (req, res) => {
   const taskId = req.params.taskId;
   const comment = req.body;
+  comment.commenter = req.user?.id;
   comment.comment_time = new Date();
   Task.updateOne({ _id: taskId }, { $push: { comments: comment } })
     .then(() => {
@@ -110,10 +129,9 @@ exports.getProgress = (req, res) => {
     });
 };
 
-exports.getTaskStatusNumber = (req, res) => {
-  const { userId } = req.params;
+exports.getStatusNum = (req, res) => {
+  let userId = req.user?.id;
   Task.find({ assign_to: userId })
-    .populate("status")
     .then((documents) => {
       let all_task_num = 0;
       let todo_num = 0;
@@ -137,6 +155,7 @@ exports.getTaskStatusNumber = (req, res) => {
       res.status(200).json(num);
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json({ error: err });
     });
 };

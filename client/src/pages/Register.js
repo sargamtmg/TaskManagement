@@ -1,6 +1,9 @@
 import { useState } from "react";
+import illustration from "../img/taskwise.jpg";
 
 function Register() {
+  const [isError, setIsError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState();
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -14,58 +17,90 @@ function Register() {
     });
   };
 
-  const handleRegister = async () => {
-    try {
-      let url = "http://localhost:8000/user";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-      if (response.ok) {
-        alert("user created successfully");
+  const handleRegister = (e) => {
+    e.preventDefault();
+    let url = "http://localhost:8000/user/register";
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          //code need to be review here
+          setIsError(true);
+          if (response.status === 400) {
+            setErrorMsg("Username is already taken");
+            throw new Error("Username is already taken.");
+          }
+          setErrorMsg("Please try again");
+          throw new Error("Please try again.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("user created");
+        setIsError(false);
         setUserData({
           username: "",
           password: "",
         });
-      } else {
-        throw new Error("Failed to create user");
-      }
-    } catch (err) {
-      alert("error creating user: " + err.message);
-    }
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        setUserData({
+          username: "",
+          password: "",
+        });
+        console.log(error);
+      });
   };
 
   return (
     <div className="register_wrapper">
-      <form className="register_form" onSubmit={handleRegister}>
-        <div className="username">
-          <input
-            type="text"
-            name="username"
-            value={userData.username}
-            placeholder="username"
-            onChange={handleChange}
-          ></input>
+      <div className="form_wrapper">
+        <div className="application_wrapper">
+          <div className="application_name">TaskWise</div>
         </div>
-        <div className="password">
-          <input
-            type="password"
-            name="password"
-            value={userData.password}
-            placeholder="password"
-            onChange={handleChange}
-          ></input>
+        <div className="form_section">
+          <form className="register_form" onSubmit={handleRegister}>
+            <div className="form_heading">Registration Form</div>
+            <div className="input_wrapper">
+              <input
+                type="text"
+                name="username"
+                className="input_form"
+                value={userData.username}
+                placeholder="username"
+                onChange={handleChange}
+              ></input>
+              {isError && <div className="error_message">{errorMsg}</div>}
+            </div>
+            <div className="input_wrapper">
+              <input
+                type="password"
+                name="password"
+                className="input_form"
+                value={userData.password}
+                placeholder="password"
+                onChange={handleChange}
+              ></input>
+            </div>
+            <button type="submit" className="register_submit">
+              Register
+            </button>
+            <div className="login_message_wrapper">
+              <a href="/login" className="login_message">
+                Already have account? Login
+              </a>
+            </div>
+          </form>
         </div>
-        <button type="submit" className="register_submit">
-          Register
-        </button>
-      </form>
-      <div>
-        {userData.username}
-        {userData.password}
+      </div>
+      <div className="app_detail">
+        <img src={illustration} alt="illustration" className="illustration" />
       </div>
     </div>
   );

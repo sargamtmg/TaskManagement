@@ -1,23 +1,94 @@
-.login_wrapper{
-    width: 100vw;
-    height: 100vh;
-    background-color: antiquewhite;
+.login_wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .form_wrapper {
+    width: 50%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    .login_form{
-        width:30%;
-        height: 50%;
-        background-color: burlywood;
+    .application_wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 15%;
+      align-self: flex-start;
+      margin-left: 10%;
+      .application_name {
+        font-weight: bold;
+        font-size: 4.5em;
+        color: $app_name_dark;
+      }
+    }
+    .form_section {
+      flex-grow: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .login_form {
+        width: 70%;
+        padding: 5% 0;
+        border-radius: 10px;
+        background-color: $sidebar_bgColor;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        .form_heading {
+          color: $white;
+          font-weight: 700;
+          font-size: 2em;
+          margin-bottom: 1em;
+        }
+        .input_wrapper {
+          margin-bottom: 2em;
+          width: 65%;
+          .input_form {
+            height: 1.5em;
+            width: 100%;
+            font-size: 1.1em;
+            padding-left: 10px;
+          }
+          .error_message {
+            color: red;
+            font-size: 1.1em;
+          }
+        }
+        .login_submit {
+          padding: 5px;
+          color: white;
+          font-size: 1.2em;
+          font-weight: 550;
+          padding: 3px 10px;
+          background-color: $task_button;
+          cursor: pointer;
+        }
+        .register_message_wrapper {
+          margin-top: 10px;
+          .register_message {
+            text-decoration: underline;
+            color: $white;
+          }
+        }
+      }
     }
-    .register_submit{
-        padding:5px;
-        color:white;
-        background-color: cadetblue;
-        cursor: pointer;
+  }
+  .app_detail {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .illustration {
+      width: 90%;
+      height: 90%;
     }
+  }
 }

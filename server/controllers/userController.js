@@ -17,6 +17,17 @@ exports.getUser = (req, res) => {
     });
 };
 
+exports.getAllUser = (req, res) => {
+  User.find()
+    .select("username")
+    .then((documents) => {
+      res.status(200).json(documents);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
+};
+
 exports.createUser = async (req, res) => {
   let pass = await bcrypt.hash(req.body.password, 10);
   let user = new User({ ...req.body, password: pass });
@@ -26,7 +37,11 @@ exports.createUser = async (req, res) => {
       res.status(201).json({ message: "user created sucessfully" });
     })
     .catch((err) => {
-      res.status(500).json({ "error creatinng user": err });
+      if (err.code === 11000) {
+        res.status(400).json({ message: "Username already taken" });
+      } else {
+        res.status(500).json({ message: "Internal server error" });
+      }
     });
 };
 

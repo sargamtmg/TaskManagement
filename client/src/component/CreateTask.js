@@ -55,7 +55,7 @@ function CreateTask(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form data: " + JSON.stringify(formData));
-    let url = `http://localhost:8000/task/${props.currentUser._id}`;
+    let url = `http://localhost:8000/task`;
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -63,6 +63,7 @@ function CreateTask(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Error creating task");
