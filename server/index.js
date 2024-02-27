@@ -36,7 +36,11 @@ const port = 8000;
 //     process.exit(1); // Exit the process if MongoDB connection fails
 //   });
 
-mongoose.connect("mongodb://localhost:27017/taskManagement");
+const password = "cnxd00peFS8EzkH0";
+
+const mongoUrl = `mongodb+srv://sargamtmg:${password}@cluster0.15dwgas.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
+mongoose.connect(mongoUrl);
 // Connection event handlers
 mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB");
