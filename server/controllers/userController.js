@@ -59,7 +59,8 @@ exports.login = (req, res) => {
         //set JWT token to cookies
         res.cookie("jwt", accessToken, {
           //httpOnly: true,
-          //secure: true,
+          secure: true,
+          sameSite: "none",
         });
         console.log("token generated : " + accessToken);
         // Send response
