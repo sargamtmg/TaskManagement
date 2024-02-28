@@ -24,21 +24,6 @@ app.use(express.json());
 app.use(cookieParser());
 const port = 8000;
 
-// let db;
-// // Connect to MongoDB
-// connectToMongoDB()
-//   .then((database) => {
-//     db = database;
-//     // Start the Express server
-//     app.listen(port, () => {
-//       console.log(`Server is running on http://localhost:${port}`);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Failed to connect to MongoDB:", error);
-//     process.exit(1); // Exit the process if MongoDB connection fails
-//   });
-
 const password = "cnxd00peFS8EzkH0";
 
 const mongoUrl = `mongodb+srv://sargamtmg:${password}@cluster0.15dwgas.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
