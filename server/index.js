@@ -11,7 +11,10 @@ const { authenticateToken } = require("./controllers/authenticateToken.js");
 const mongoose = require("mongoose");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: [
+    "https://taskwise.s3.ap-south-1.amazonaws.com/",
+    "http://localhost:3000",
+  ],
   credentials: true,
 };
 
