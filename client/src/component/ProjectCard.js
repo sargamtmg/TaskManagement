@@ -12,7 +12,7 @@ function ProjectCard(props) {
   const deleteMenuRef = useRef(null);
 
   useEffect(() => {
-    let url = `http://localhost:8000/project/progress/${props.projectInfo._id}`;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/project/progress/${props.projectInfo._id}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -42,7 +42,7 @@ function ProjectCard(props) {
   const deleteItem = async (event) => {
     event.preventDefault();
     // Add your logic for deleting the item here
-    let url = `http://localhost:8000/project/${props.projectInfo._id}`;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/project/${props.projectInfo._id}`;
     await fetch(url, {
       method: "Delete",
       headers: {

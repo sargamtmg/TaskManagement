@@ -10,7 +10,7 @@ function TaskStatusBoard(props) {
     console.log("status : " + props.status);
     let projectIdQuery = props.projectId ? `&projectId=${props.projectId}` : "";
     let statusQuery = props.userId ? `&status=${props.status}` : "";
-    let url = `http://localhost:8000/task?${projectIdQuery}${statusQuery}`;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/task?${projectIdQuery}${statusQuery}`;
     console.log(url);
     fetch(url, { credentials: "include" })
       .then((response) => {

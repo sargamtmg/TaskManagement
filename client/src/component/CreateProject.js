@@ -27,7 +27,7 @@ function CreateProject(props) {
     e.preventDefault();
     formData.deadline = startDate;
     console.log(formData);
-    let url = "http://localhost:8000/project/";
+    let url = `${process.env.REACT_APP_API_BASE_URL}/project/`;
     console.log(url);
     await fetch(url, {
       method: "POST",

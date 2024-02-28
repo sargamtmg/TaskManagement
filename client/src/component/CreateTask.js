@@ -30,7 +30,7 @@ function CreateTask(props) {
     if (summary_input.current) {
       summary_input.current.focus();
     }
-    fetch(`http://localhost:8000/user`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user`, {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -67,7 +67,7 @@ function CreateTask(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form data: " + JSON.stringify(formData));
-    let url = `http://localhost:8000/task`;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/task`;
     try {
       const response = await fetch(url, {
         method: "POST",

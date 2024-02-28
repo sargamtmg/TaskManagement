@@ -22,7 +22,7 @@ function ProjectPage() {
 
   //authenticate user
   useEffect(() => {
-    fetch("http://localhost:8000/auth-check", {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/auth-check`, {
       credentials: "include",
     }).then((response) => {
       if (!response.ok) {
@@ -36,7 +36,7 @@ function ProjectPage() {
 
   const fetchingData = async () => {
     try {
-      let url = `http://localhost:8000/project/${projectId}`;
+      let url = `${process.env.REACT_APP_API_BASE_URL}/project/${projectId}`;
       const response1 = await fetch(url);
       const data1 = await response1.json();
       setProjectInfo(data1);
@@ -46,7 +46,9 @@ function ProjectPage() {
     }
 
     try {
-      const response2 = await fetch("http://localhost:8000/allusers");
+      const response2 = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/allusers`
+      );
       const data2 = await response2.json();
       setAllUser(data2);
     } catch (error) {
@@ -61,7 +63,7 @@ function ProjectPage() {
   const handleAddMember = (e) => {
     const { name, value } = e.target;
     console.log("name:" + name + " value:" + value);
-    let url = `http://localhost:8000/project/addmember/${projectId}`;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/project/addmember/${projectId}`;
     fetch(url, {
       method: "POST",
       headers: {

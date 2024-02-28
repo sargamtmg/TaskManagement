@@ -29,7 +29,7 @@ function TaskCard(props) {
   const deleteTask = async (event) => {
     event.preventDefault();
     // Adding your logic for deleting the item here
-    let url = `http://localhost:8000/task/${props.taskInfo._id}`;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/task/${props.taskInfo._id}`;
     await fetch(url, {
       method: "Delete",
       headers: {

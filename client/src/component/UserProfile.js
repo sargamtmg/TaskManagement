@@ -7,7 +7,7 @@ function UserProfile(props) {
   const deleteMenuRef = useRef(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/user`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user`, {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -21,7 +21,7 @@ function UserProfile(props) {
   }, []);
 
   const logOut = () => {
-    fetch(`http://localhost:8000/user/logout`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/logout`, {
       method: "Post",
       credentials: "include",
     })

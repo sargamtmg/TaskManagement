@@ -19,7 +19,7 @@ function Register() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    let url = "http://localhost:8000/user/register";
+    let url = `${process.env.REACT_APP_API_BASE_URL}/user/register`;
     fetch(url, {
       method: "POST",
       headers: {

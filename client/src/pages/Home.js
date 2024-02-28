@@ -19,7 +19,7 @@ function Home() {
 
   //authenticate user
   useEffect(() => {
-    fetch("http://localhost:8000/auth-check", {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/auth-check`, {
       credentials: "include",
     }).then((response) => {
       if (!response.ok) {
@@ -29,10 +29,11 @@ function Home() {
       }
       setIsAuthenticated(true);
     });
+    console.log("backend base url : " + process.env.REACT_APP_API_BASE_URL);
   }, []);
 
   const fetchAllProject = async () => {
-    await fetch(`http://localhost:8000/projects`, {
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/projects`, {
       credentials: "include",
     })
       .then((response) => response.json())

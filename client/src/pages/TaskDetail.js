@@ -41,7 +41,7 @@ function TaskDetail(props) {
 
   //authenticate user
   useEffect(() => {
-    fetch("http://localhost:8000/auth-check", {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/auth-check`, {
       credentials: "include",
     }).then((response) => {
       if (!response.ok) {
@@ -54,7 +54,7 @@ function TaskDetail(props) {
   }, []);
 
   const getTaskInfo = () => {
-    let url = "http://localhost:8000/task/taskInfo/" + taskId;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/task/taskInfo/${taskId}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -75,7 +75,7 @@ function TaskDetail(props) {
   useEffect(() => {
     const fetchUserAndProject = async () => {
       if (taskInfo.summary) {
-        let projectUrl = `http://localhost:8000/project/${taskInfo?.project._id}`;
+        let projectUrl = `${process.env.REACT_APP_API_BASE_URL}/project/${taskInfo?.project._id}`;
         console.log("projectid : " + taskInfo.project._id);
         await fetch(projectUrl)
           .then((response) => response.json())
@@ -101,13 +101,16 @@ function TaskDetail(props) {
     console.log("name: " + name + " value : " + value);
     var updating_data = { [name]: value };
     console.log("updating_data : " + JSON.stringify(updating_data));
-    await fetch("http://localhost:8000/task/update/" + taskInfo._id, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updating_data),
-    })
+    await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/task/update/${taskInfo._id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updating_data),
+      }
+    )
       .then(() => {
         console.log("task updated");
       })
@@ -126,7 +129,7 @@ function TaskDetail(props) {
 
   const addComment = async () => {
     if (commentInput) {
-      let url = `http://localhost:8000/task/addcomment/${taskId}`;
+      let url = `${process.env.REACT_APP_API_BASE_URL}/task/addcomment/${taskId}`;
       let comment = {
         comment: commentInput,
       };
@@ -167,13 +170,16 @@ function TaskDetail(props) {
   };
 
   const approveTask = async () => {
-    await fetch("http://localhost:8000/task/approve/" + taskInfo._id, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
+    await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/task/approve/${taskInfo._id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    )
       .then(() => {
         console.log("task approved");
       })
@@ -189,13 +195,16 @@ function TaskDetail(props) {
         is_approved: false,
       },
     };
-    await fetch("http://localhost:8000/task/update/" + taskInfo._id, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(approvalData),
-    })
+    await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/task/update/${taskInfo._id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(approvalData),
+      }
+    )
       .then(() => {
         console.log("task approval cancelled");
       })

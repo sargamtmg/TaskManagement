@@ -1,4 +1,4 @@
-GET http://localhost:8000/task
+GET http://localhost:8000/task/task
 
 ###
 GET http://localhost:8000/user

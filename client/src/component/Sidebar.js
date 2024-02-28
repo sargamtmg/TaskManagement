@@ -13,7 +13,7 @@ function Sidebar(props) {
   };
 
   const fetchAllProject = async () => {
-    await fetch(`http://localhost:8000/projects`, {
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/projects`, {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -24,7 +24,7 @@ function Sidebar(props) {
         alert("error fetching error : " + err);
       });
 
-    await fetch(`http://localhost:8000/task/statusInfo`, {
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/task/statusInfo`, {
       credentials: "include",
     })
       .then((response) => response.json())
