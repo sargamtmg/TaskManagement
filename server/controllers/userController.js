@@ -74,6 +74,6 @@ exports.login = (req, res) => {
 
 exports.logout = (req, res) => {
   // Clear the jwt cookie
-  res.clearCookie("jwt");
+  res.clearCookie("jwt", "", { expires: new Date(0) });
   res.status(200).json({ message: "Logout successful" });
 };
