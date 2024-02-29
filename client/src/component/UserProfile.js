@@ -22,7 +22,7 @@ function UserProfile(props) {
 
   const logOut = () => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/user/logout`, {
-      method: "Post",
+      method: "POST",
       credentials: "include",
     })
       .then((response) => {
