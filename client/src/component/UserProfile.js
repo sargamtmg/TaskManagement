@@ -22,7 +22,6 @@ function UserProfile(props) {
 
   const logOut = () => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/user/logout`, {
-      method: "POST",
       credentials: "include",
     })
       .then((response) => {
@@ -32,6 +31,7 @@ function UserProfile(props) {
         return response.json();
       })
       .then((data) => {
+        document.cookie = "jwt=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
         window.location.href = "/login";
       })
       .catch((err) => {
