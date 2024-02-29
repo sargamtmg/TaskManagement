@@ -12,6 +12,7 @@ const mongoose = require("mongoose");
 
 const corsOptions = {
   origin: [
+    "https://master.d235f70a0haj8w.amplifyapp.com",
     "http://taskwise.s3-website.ap-south-1.amazonaws.com",
     "http://localhost:3000",
   ],
